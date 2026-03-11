@@ -25,6 +25,13 @@ async function run() {
         await client.connect();
         const transactionsCollection = client.db("FineEaseDB").collection("transactions")
 
+        app.get('/my-transactions/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = {email: email};
+            const result = await transactionsCollection.find(query).toArray();
+            res.send(result)
+        })
+
         app.post('/add-transaction', async (req, res) => {
             const transaction = req.body;
             const result = await transactionsCollection.insertOne(transaction);
