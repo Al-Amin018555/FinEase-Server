@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 app.use(cors())
 app.use(express.json())
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.q3bebek.mongodb.net/?appName=Cluster0`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -27,8 +27,25 @@ async function run() {
 
         app.get('/my-transactions/:email', async (req, res) => {
             const email = req.params.email;
-            const query = {email: email};
+            const query = { email: email };
             const result = await transactionsCollection.find(query).toArray();
+            res.send(result)
+        })
+        app.get('/transaction/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await transactionsCollection.findOne(query);
+            res.send(result)
+        })
+
+        app.put('/transaction/update/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const {_id, ...updatedTransaction} = req.body;
+            const updateDoc = {
+                $set: updatedTransaction,
+            }
+            const result = await transactionsCollection.updateOne(query, updateDoc);
             res.send(result)
         })
 
