@@ -38,10 +38,19 @@ async function run() {
             res.send(result)
         })
 
+
+        app.post('/add-transaction', async (req, res) => {
+            const transaction = req.body;
+            const result = await transactionsCollection.insertOne(transaction);
+            res.send(result)
+
+        })
+
+
         app.put('/transaction/update/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
-            const {_id, ...updatedTransaction} = req.body;
+            const { _id, ...updatedTransaction } = req.body;
             const updateDoc = {
                 $set: updatedTransaction,
             }
@@ -49,11 +58,12 @@ async function run() {
             res.send(result)
         })
 
-        app.post('/add-transaction', async (req, res) => {
-            const transaction = req.body;
-            const result = await transactionsCollection.insertOne(transaction);
+        app.delete('/transaction/delete/:id', async (req, res) => {
+            const id = req.params.id;
+            console.log(id);
+            const query = { _id: new ObjectId(id) };
+            const result = await transactionsCollection.deleteOne(query);
             res.send(result)
-
         })
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
