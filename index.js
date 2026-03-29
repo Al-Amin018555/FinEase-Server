@@ -26,7 +26,6 @@ async function run() {
     app.get('/', (req, res) => {
         res.send('FinEase server is running')
     })
-
     app.get('/my-transactions/:email', async (req, res) => {
         const email = req.params.email;
         const query = { email: email };
