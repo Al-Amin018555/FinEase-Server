@@ -2,8 +2,9 @@
 
 This is the backend/server for **FinEase**, a personal finance management web application. It provides RESTful API endpoints to manage user transactions (income & expenses), connected to a MongoDB database.
 
-🔗 **Client Repo:** https://github.com/Al-Amin018555/FinEase-Client
-🔗 **Live Site:** https://github.com/Al-Amin018555/FinEase-Server
+🔗 **Client Repo:** https://lnkd.in/gqxTX853
+
+🔗 **Live Site:** https://lnkd.in/gCi3kmgv
 
 ## 🛠️ Tech Stack
 
